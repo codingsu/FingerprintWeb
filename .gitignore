@@ -8,5 +8,5 @@ build
 
 static/conference
 static/paper
-
+.idea/
 db.sqlite3
