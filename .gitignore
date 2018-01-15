@@ -5,8 +5,8 @@
 *.egg-info
 dist
 build
-
+.DS_Store
 static/conference
 static/paper
-.idea/
+.idea
 db.sqlite3
