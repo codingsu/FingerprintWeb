@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">会议列表</a>
+                </div>
+                {#          {% include "userdropdown.html" %}#}
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div style="" class="header">
+                                <div style="float: left;">
+                                    <h4 class="title">会议列表</h4>
+                                    <p class="category"></p>
+                                </div>
+                                    <div style="float: right;">
+                                        <a href="/tonewconference" class="btn btn-info btn-fill"><i
+                                                class="fa fa-plus"></i>新建会议</a>
+                                    </div>
+                                <div style="max-width:300px;margin-right: 100px;float: right;">
+                                        <form action="/searchconference" class="bs-example bs-example-form" role="form" method="post">
+                                            {% csrf_token %}
+                                                <div class="input-group">
+                                                    <input id="keyword" name="keyword" type="text" placeholder="请输入关键字" class="form-control">
+                                                    <span class="input-group-btn">
+						                                <button class="btn btn-default" type="submit">
+							                            搜索
+						                                </button>
+                                                    </span>
+                                                </div><!-- /input-group -->
+
+                                        </form>
+                                    </div>
+                            </div>
+
+                            <div style="margin-top:60px" class="content table-responsive  table-full-width">
+                                <table id="table_1" style="table-layout:fixed;" class="table table-hover table-striped">
+                                    <thead>
+                                    <th width="20%">会议名称</th>
+                                    <th width="5%">级别</th>
+                                    <th width="8%">Deadline</th>
+                                    {% if iseditrss %}
+                                        <th width="20%" style="">Poster deadline</th>
+                                    {% endif %}
+                                    <th width="10%">会议时间</th>
+                                    <th width="10%">会议地点</th>
+                                    <th width="20%">URL</th>
+                                    <th width="5%">例文</th>
+                                    <th width="5%">编辑</th>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in conferencelist %}
+                                        <tr>
+                                        <tr>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.name }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.level }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.deadline }}</td>
+                                            <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;">{{ i.startdate }}</td>
+                                            <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;">{{ i.location }}</td>
+                                            <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;">{{ i.url }}</td>
+                                            {% if i.filename != "" %}
+                                            <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;"><a href="/downloadconferencepage?id={{ i.id }}">下载</a></td>
+                                            {% else %}
+                                            <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;">无</td>
+                                            {% endif %}
+                                            <td  class="td-actions" style="word-wrap:break-word;word-break:break-all;">
+                                                    <a href="/tonewconference?id={{ i.id }}" role="button" rel="tooltip" title="编辑" class="btn btn-info btn-simple btn-xs">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                            </td>
+                                            {#                            {% if iseditrss %}#}
+                                            {#                        <td  class="td-actions text-right" style="word-wrap:break-word;word-break:break-all;">#}
+                                            {#                                <a href="/toeditrss?id={{ i.id }}" role="button" rel="tooltip" title="编辑" class="btn btn-info btn-simple btn-xs">#}
+                                            {#                                    <i class="fa fa-pencil"></i>#}
+                                            {#                                </a>#}
+                                            {#                                <a href="/deleterss?id={{ i.id }}" role="button" rel="tooltip" title="删除" class="btn btn-danger btn-simple btn-xs">#}
+                                            {#                                    <i class="fa fa-times"></i>#}
+                                            {#                            </a>#}
+                                            {#                        </td>#}
+                                            {#                        {% endif %}#}
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div id="barcon1" name="barcon1"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include "footer.html" %}
+    </div>
+    <script>
+        function goPage(pno, tableid, barconid) {
+            var itable = document.getElementById(tableid);
+            var num = parseInt(itable.rows.length/2);//表格所有行数(所有记录数)
+            var totalPage = 0;//总页数
+            var pageSize = 10;//每页显示行数
+            //总共分几页
+            if (num / pageSize > parseInt(num / pageSize)) {
+                totalPage = parseInt(num / pageSize) + 1;
+            } else {
+                totalPage = parseInt(num / pageSize);
+            }
+            var currentPage = pno;//当前页数
+            var startRow = (currentPage - 1) * pageSize + 1;//开始显示的行  31
+            var endRow = currentPage * pageSize;//结束显示的行   40
+            endRow = (endRow > num) ? num : endRow;
+            //遍历显示数据实现分页
+            for (var i = 1; i < (num + 1); i++) {
+                var irow = itable.rows[i - 1];
+                if (i >= startRow && i <= endRow) {
+                    irow.style.display = "";
+                } else {
+                    irow.style.display = "none";
+                }
+            }
+            itable.rows[0].style.display = "";
+            var tempStr = "<ul class=\"pager\">"
+            tempStr += "共" + (num) + "条记录 分" + totalPage + "页 当前第" + currentPage + "页";
+            if (currentPage > 1) {
+                tempStr += "<li><a href=\"#\" onClick=\"goPage(" + (1) + ",\'" + tableid + "\',\'" + barconid + "\')\">首页</a></li>";
+                tempStr += "<li><a href=\"#\" onClick=\"goPage(" + (currentPage - 1) + ",\'" + tableid + "\',\'" + barconid + "\')\"><上一页</a></li>";
+            } else {
+                tempStr += "<li><a href=\"#\" disable>首页</a></li>";
+                tempStr += "<li><a href=\"#\" disable><上一页</a></li>";
+            }
+
+            if (currentPage < totalPage) {
+                tempStr += "<li><a href=\"#\" onClick=\"goPage(" + (currentPage + 1) + ",\'" + tableid + "\',\'" + barconid + "\')\">下一页></a></li>";
+                tempStr += "<li><a href=\"#\" onClick=\"goPage(" + (totalPage) + ",\'" + tableid + "\',\'" + barconid + "\')\">尾页</a></li>";
+            } else {
+                tempStr += "<li><a href=\"#\" disable>下一页></a></li>";
+                tempStr += "<li><a href=\"#\" disable>尾页</a></li>";
+            }
+            tempStr += "</ul>"
+            document.getElementById(barconid).innerHTML = tempStr;
+        }
+        goPage(1, 'table_1', 'barcon1');
+
+    </script>
+    </div>
+{% endblock content %}
