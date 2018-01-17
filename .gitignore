@@ -10,3 +10,5 @@ static/conference
 static/paper
 .idea
 db.sqlite3
+servererror.log
+page/migrations
