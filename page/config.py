@@ -4,4 +4,4 @@ dbpassword = 'wrjfaxcvmlkwr'
 dbname = 'pageweb'
 
 conferencefilepath = 'static/conference/'
-paperfilepath = 'static/paper/'
+paperfilepath = '/home/arkteam_paper/static/paper/'
