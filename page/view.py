@@ -30,6 +30,7 @@ def createConference(request):
             location = request.POST['location']
             url = request.POST['url']
             cFile = request.FILES.get("cfile", None)  # 获取上传的文件，如果没有文件，则默认为None
+            cFile.name
             filename = ""
             # 会议例文文件路径
             path = conferencefilepath
@@ -81,6 +82,8 @@ def createConference(request):
                 c.save()
                 return JsonResponse((1, '添加会议信息成功！'), safe=False)
     except:
+        writeerrormsg(traceback.format_exc())
+
         traceback.print_exc()
         return JsonResponse((2, '系统错误，请重试！'), safe=False)
 
@@ -317,7 +320,7 @@ def searchConference(request):
 
 
 def writeerrormsg(word):
-    f = open('./servererror.log','wb+')
+    f = open('servererror.log','wb+')
     f.write(word)
     f.flush()
     f.close()
