@@ -30,7 +30,6 @@ def createConference(request):
             location = request.POST['location']
             url = request.POST['url']
             cFile = request.FILES.get("cfile", None)  # 获取上传的文件，如果没有文件，则默认为None
-            cFile.name
             filename = ""
             # 会议例文文件路径
             path = conferencefilepath
