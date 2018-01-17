@@ -28,6 +28,7 @@ def createConference(request):
             level = request.POST['level']
             deadline = request.POST['deadline']
             location = request.POST['location']
+            notifytime = request.POST['notifytime']
             url = request.POST['url']
             cFile = request.FILES.get("cfile", None)  # 获取上传的文件，如果没有文件，则默认为None
             filename = ""
@@ -58,6 +59,7 @@ def createConference(request):
                 c.level = level
                 c.deadline = deadline
                 c.location = location
+                c.notifytime = notifytime
                 c.url = url
                 if filename != "":
                     if filename != c.filename:
@@ -77,7 +79,7 @@ def createConference(request):
                 return JsonResponse((1, '修改会议信息成功！'), safe=False)
             except:
                 c = conference.objects.create(name=name, startdate=startdate, level=level, deadline=deadline,
-                                              location=location, url=url, filename=filename)
+                                              location=location, url=url, filename=filename,notifytime=notifytime)
                 c.save()
                 return JsonResponse((1, '添加会议信息成功！'), safe=False)
     except:

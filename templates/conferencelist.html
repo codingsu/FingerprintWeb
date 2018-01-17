@@ -60,6 +60,7 @@
                                     {% endif %}
                                     <th width="10%">会议时间</th>
                                     <th width="10%">会议地点</th>
+                                    <th width="10%">通知时间</th>
                                     <th width="20%">URL</th>
                                     <th width="5%">例文</th>
                                     <th width="5%">编辑</th>
@@ -73,6 +74,7 @@
                                             <td style="word-wrap:break-word;word-break:break-all;">{{ i.deadline }}</td>
                                             <td style="word-wrap:break-word;word-break:break-all;">{{ i.startdate }}</td>
                                             <td style="word-wrap:break-word;word-break:break-all;">{{ i.location }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.notifytime }}</td>
                                             <td style="word-wrap:break-word;word-break:break-all;">{{ i.url }}</td>
                                             {% if i.filename != "" %}
                                             <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;"><a href="/downloadconferencepage?id={{ i.id }}">下载</a></td>

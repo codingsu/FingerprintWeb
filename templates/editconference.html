@@ -73,6 +73,13 @@
                                                                name="location"
                                                                id="location" value="{{ conference.location }}">
                                                     </div>
+                                                    <label>通知时间</label>
+{#                                                        <input type="text" value="{{ conference.startdate }}"#}
+{#                                                               class="form-control" name="startdate" id="startdate"#}
+{#                                                               lay-key="3" readonly>#}
+                                                                                                                <input  type="text" class="form-control" name="notifytime"
+                                                                                                                       id="notifytime" value="{{ conference.notifytime }}">
+                                                    </div>
                                                     <div class="form-group">
                                                         <label>URL</label>
                                                         <input onblur="checknull(this)" type="text" class="form-control"
@@ -140,6 +147,14 @@
                                                         <input onblur="checknull(this)" type="text" class="form-control"
                                                                name="location"
                                                                id="location" value="{{ conference.location }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>通知时间</label>
+{#                                                        <input type="text" value="{{ conference.startdate }}"#}
+{#                                                               class="form-control" name="startdate" id="startdate"#}
+{#                                                               lay-key="3" readonly>#}
+                                                                                                                <input  type="text" class="form-control" name="notifytime"
+                                                                                                                       id="notifytime" value="{{ conference.notifytime }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>URL</label>
