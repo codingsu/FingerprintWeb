@@ -260,6 +260,7 @@ def createpaper(request):
 
 
     except:
+        writeerrormsg(traceback.format_exc())
         traceback.print_exc()
         return JsonResponse((2, '系统错误，请重试！'), safe=False)
 
@@ -314,6 +315,12 @@ def searchConference(request):
         return render(request, 'conferensearch.html',
                       {'conferencelist': result})
 
+
+def writeerrormsg(word):
+    f = open('./servererror.log','wb+')
+    f.write(word)
+    f.flush()
+    f.close()
 
 def errorhtml(request):
     """
