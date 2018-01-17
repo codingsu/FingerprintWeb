@@ -52,10 +52,10 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>发表时间</label>
-                                                        <input type="text" value="{{ conference.publishdate }}" class="form-control" name="publishdate" id="publishdate" lay-key="3" readonly>
+{#                                                        <input type="text" value="{{ conference.publishdate }}" class="form-control" name="publishdate" id="publishdate" lay-key="3" readonly>#}
 
-{#                                                        <input onblur="checknull(this)" type="text" class="form-control" name="publishdate"#}
-{#                                                               id="publishdate" value="{{ paper.publishdate }}">#}
+                                                        <input onblur="checknull(this)" type="text" class="form-control" name="publishdate"
+                                                               id="publishdate" value="{{ paper.publishdate }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>作者</label>
@@ -104,10 +104,10 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>发表时间</label>
-                                                        <input type="text" value="{{ conference.publishdate }}" class="form-control" name="publishdate" id="publishdate" lay-key="3" readonly>
+{#                                                        <input type="text" value="{{ conference.publishdate }}" class="form-control" name="publishdate" id="publishdate" lay-key="3" readonly>#}
 
-{#                                                        <input onblur="checknull(this)" type="text" class="form-control" name="publishdate"#}
-{#                                                               id="publishdate" value="{{ paper.publishdate }}">#}
+                                                        <input onblur="checknull(this)" type="text" class="form-control" name="publishdate"
+                                                               id="publishdate" value="{{ paper.publishdate }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>作者</label>
@@ -147,10 +147,10 @@
     </div>
     {% include "footer.html" %}
     <script>
-        laydate.render({
-          elem: '#publishdate' //指定元素
-            ,format: 'yyyy-MM-dd'
-        });
+{#        laydate.render({#}
+{#          elem: '#publishdate' //指定元素#}
+{#            ,format: 'yyyy-MM-dd'#}
+{#        });#}
         function checknull(obj) {
             obj.style.borderColor = obj.value == "" ? 'red' : '';
         }

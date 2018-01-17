@@ -28,7 +28,7 @@
                                 <h4 class="title">会议信息编辑</h4>
                             </div>
                             <div class="content">
-                                <form id="form1" name="form1"  enctype="application/x-www-form-urlencoded"
+                                <form id="form1" name="form1" enctype="application/x-www-form-urlencoded"
                                       method="POST">
                                     {% csrf_token %}
                                     <div class="row">
@@ -42,34 +42,41 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>会议名称</label>
-                                                        <input onblur="checknull(this)" type="text" class="form-control" name="name" id="name"
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="name" id="name"
                                                                value="{{ conference.name }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>级别</label>
-                                                        <input onblur="checknull(this)" type="text" class="form-control" name="level" id="level"
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="level" id="level"
                                                                value="{{ conference.level }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Deadline</label>
-                                                        <input type="text" value="{{ conference.deadline }}" class="form-control" name="deadline" id="deadline" lay-key="3" readonly>
+                                                        {#                                                        <input type="text" value="{{ conference.deadline }}" class="form-control" name="deadline" id="deadline" lay-key="3" readonly>#}
 
-{#                                                        <input onblur="checknull(this)" type="text" class="form-control" name="deadline"#}
-{#                                                               id="deadline" value="{{ conference.deadline }}">#}
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="deadline"
+                                                               id="deadline" value="{{ conference.deadline }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>会议时间</label>
-                                                        <input type="text" value="{{ conference.startdate }}" class="form-control" name="startdate" id="startdate" lay-key="3" readonly>
-
+                                                        {#                                                        <input type="text" value="{{ conference.startdate }}" class="form-control" name="startdate" id="startdate" lay-key="3" readonly>#}
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="startdate"
+                                                               id="startdate" value="{{ conference.startdate }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>会议地点</label>
-                                                        <input onblur="checknull(this)" type="text" class="form-control" name="location"
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="location"
                                                                id="location" value="{{ conference.location }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>URL</label>
-                                                        <input onblur="checknull(this)" type="text" class="form-control" name="url" id="url"
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="url" id="url"
                                                                value="{{ conference.url }}">
                                                     </div>
                                                     <div class="form-group">
@@ -82,7 +89,9 @@
                                                     <div style="float: right;">
                                                         <a href="/" class="btn btn-info btn-fill">返回</a>
 
-                                                        <button id="submit_bt" type="button" onclick="send()" class="btn btn-info btn-fill">提交</button>
+                                                        <button id="submit_bt" type="button" onclick="send()"
+                                                                class="btn btn-info btn-fill">提交
+                                                        </button>
                                                         <button onclick="deleteconference('{{ conference.id }}')"
                                                                 type="button" class="btn btn-danger btn-fill">删除
                                                         </button>
@@ -99,35 +108,43 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>会议名称</label>
-                                                        <input onblur="checknull(this)" type="text" class="form-control" name="name" id="name"
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="name" id="name"
                                                                value="{{ conference.name }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>级别</label>
-                                                        <input onblur="checknull(this)" type="text" class="form-control" name="level" id="level"
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="level" id="level"
                                                                value="{{ conference.level }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Deadline</label>
-                                                        <input type="text" value="{{ conference.deadline }}" class="form-control" name="deadline" id="deadline" lay-key="3" readonly>
+{#                                                        <input type="text" value="{{ conference.deadline }}"#}
+{#                                                               class="form-control" name="deadline" id="deadline"#}
+{#                                                               lay-key="3" readonly>#}
 
-{#                                                        <input onblur="checknull(this)" type="text" class="form-control" name="deadline"#}
-{#                                                               id="deadline" value="{{ conference.deadline }}">#}
+                                                                                                                <input onblur="checknull(this)" type="text" class="form-control" name="deadline"
+                                                                                                                       id="deadline" value="{{ conference.deadline }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>会议时间</label>
-                                                        <input type="text" value="{{ conference.startdate }}"  class="form-control" name="startdate" id="startdate" lay-key="3" readonly>
-{#                                                        <input  type="text" class="form-control" name="startdate"#}
-{#                                                               id="startdate" value="{{ conference.startdate }}">#}
+{#                                                        <input type="text" value="{{ conference.startdate }}"#}
+{#                                                               class="form-control" name="startdate" id="startdate"#}
+{#                                                               lay-key="3" readonly>#}
+                                                                                                                <input  type="text" class="form-control" name="startdate"
+                                                                                                                       id="startdate" value="{{ conference.startdate }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>会议地点</label>
-                                                        <input onblur="checknull(this)" type="text" class="form-control" name="location"
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="location"
                                                                id="location" value="{{ conference.location }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>URL</label>
-                                                        <input onblur="checknull(this)" type="text" class="form-control" name="url" id="url"
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="url" id="url"
                                                                value="{{ conference.url }}">
                                                     </div>
                                                     <div class="form-group">
@@ -140,7 +157,9 @@
                                                     <div style="float: right;">
                                                         <a href="/" class="btn btn-info btn-fill">返回</a>
 
-                                                        <button id="submit_bt" type="button" onclick="send()" class="btn btn-info btn-fill">提交</button>
+                                                        <button id="submit_bt" type="button" onclick="send()"
+                                                                class="btn btn-info btn-fill">提交
+                                                        </button>
 
                                                     </div>
                                                     <div class="clearfix"></div>
@@ -158,22 +177,22 @@
     </div>
     {% include "footer.html" %}
     <script>
-        lay('#version').html('-v'+ laydate.v);
-
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#startdate' //指定元素
-            ,format: 'yyyy-MM-dd'
-        });
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#deadline' //指定元素
-            ,type: 'datetime'
-        });
+{#        lay('#version').html('-v' + laydate.v);#}
+{##}
+{#        //执行一个laydate实例#}
+{#        laydate.render({#}
+{#            elem: '#startdate' //指定元素#}
+{#            , format: 'yyyy-MM-dd'#}
+{#        });#}
+{#        //执行一个laydate实例#}
+{#        laydate.render({#}
+{#            elem: '#deadline' //指定元素#}
+{#            , type: 'datetime'#}
+{#        });#}
         function checknull(obj) {
             obj.style.borderColor = obj.value == "" ? 'red' : '';
         }
-    
+
         function send() {
             var f = document.getElementById("form1");
             for (var i = 0; i < f.elements.length; i++) {
