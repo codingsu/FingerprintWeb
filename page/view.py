@@ -319,7 +319,7 @@ def searchConference(request):
 
 
 def writeerrormsg(word):
-    f = open('servererror.log','wb+')
+    f = open('/home/arkteam_paper/servererror.log','wb+')
     f.write(word)
     f.flush()
     f.close()
