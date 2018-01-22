@@ -12,3 +12,4 @@ static/paper
 db.sqlite3
 servererror.log
 page/migrations
+page/config.py
