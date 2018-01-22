@@ -112,15 +112,16 @@
         {% include "footer.html" %}
     </div>
     <script>
+        function goPage(pno, tableid, barconid) {
             var itable = document.getElementById(tableid);
             var num = itable.rows.length;//表格所有行数(所有记录数)
             var totalPage = 0;//总页数
-            var pageSize = 5;//每页显示行数
+            var pageSize = 3;//每页显示行数
             //总共分几页
-            if(num/pageSize > parseInt(num/pageSize)){
-                    totalPage=parseInt(num/pageSize);
+            if((num-1)/pageSize > parseInt((num-1)/pageSize)){
+                    totalPage=parseInt((num-1)/pageSize)+1;
                }else{
-                   totalPage=parseInt(num/pageSize)-1;
+                   totalPage=(num-1)/pageSize;
                }
             var currentPage = pno;//当前页数
             var startRow = (currentPage - 1) * pageSize+1;//开始显示的行  31
@@ -157,7 +158,6 @@
             document.getElementById(barconid).innerHTML = tempStr;
             }
         goPage(1,'table_1','barcon1');
-
     </script>
     </div>
 {% endblock content %}
