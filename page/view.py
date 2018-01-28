@@ -8,6 +8,8 @@ import traceback
 import logging
 import os
 from config import conferencefilepath, paperfilepath
+
+import time
 import sys
 
 reload(sys)
@@ -32,6 +34,12 @@ def createConference(request):
             url = request.POST['url']
             cFile = request.FILES.get("cfile", None)  # 获取上传的文件，如果没有文件，则默认为None
             filename = ""
+            try:
+                deadline = time.mktime(time.strptime(deadline, '%Y-%m-%d'))
+            except:
+                traceback.print_exc()
+                return JsonResponse((2, '截止时间填写错误，请重试！'), safe=False)
+
             # 会议例文文件路径
             path = conferencefilepath
             if not os.path.exists(path):
@@ -58,6 +66,7 @@ def createConference(request):
                 c.startdate = startdate
                 c.level = level
                 c.deadline = deadline
+
                 c.location = location
                 c.notifytime = notifytime
                 c.url = url
@@ -95,7 +104,13 @@ def showConference(request):
         :param request:
         :return:
     """
-    conferencelist = conference.objects.all()
+    conferencelist = conference.objects.all().order_by('deadline')
+    for c in conferencelist:
+        try:
+            c.deadline = time.strftime('%Y-%m-%d', time.gmtime(float(c.deadline)))
+        except:
+            continue
+
     return render(request, 'conferencelist.html',
                   {'conferencelist': conferencelist})
 
