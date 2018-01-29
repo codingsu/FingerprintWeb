@@ -126,6 +126,10 @@ def tonewconference(request):
             try:
                 id = request.GET['id']
                 c = conference.objects.get(id=id)
+                try:
+                    c.deadline = time.strftime('%Y-%m-%d', time.gmtime(float(c.deadline)))
+                except:
+                    pass
                 return render(request, 'editconference.html', {'conference': c})
             except:
                 return render(request, 'editconference.html', {'conference': None})
