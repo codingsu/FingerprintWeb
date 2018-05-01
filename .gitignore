@@ -10,4 +10,5 @@ build
 db.sqlite3
 servererror.log
 fingerprint/migrations
+FingerprintWeb/settings.py
 fingerprint/config.py
