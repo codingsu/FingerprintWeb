@@ -1,4 +1,6 @@
 Traceback (most recent call last):
-  File "/Users/sujunwei/PycharmProjects/PaperWeb/page/view.py", line 33, in createConference
-    cFile.name
-AttributeError: 'NoneType' object has no attribute 'name'
+  File "/Users/sujunwei/PycharmProjects/FingerprintWeb/fingerprint/view.py", line 301, in createImplie
+    decription = request.POST['decription']
+  File "/Library/Python/2.7/site-packages/django/utils/datastructures.py", line 322, in __getitem__
+    raise MultiValueDictKeyError(repr(key))
+MultiValueDictKeyError: "'decription'"

@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('page', '0001_initial'),
+        ('fingerprint', '0001_initial'),
     ]
 
     operations = [

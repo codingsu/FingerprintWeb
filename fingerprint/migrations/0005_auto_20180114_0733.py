@@ -7,12 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('page', '0002_auto_20180114_0533'),
+        ('fingerprint', '0004_remove_paper_url'),
     ]
 
     operations = [
-        migrations.RenameModel(
-            old_name='pager',
-            new_name='paper',
+        migrations.RenameField(
+            model_name='paper',
+            old_name='auther',
+            new_name='author',
         ),
     ]

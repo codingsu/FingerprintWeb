@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-panel">
+  <nav class="navbar navbar-default navbar-fixed">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">统计</a>
+    </div>
+  </div>
+</nav>
+  <div style="position:relative"class="content">
+    <div align="center" style="margin-top:40px" class="container-fluid">
+      <div  class="row">
+        <div  class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <ul class="nav nav-tabs">
+                        <li id="tab_1" class="active"><a href="#" onclick="changetab(1)">指纹库统计</a></li>
+                        <li id="tab_2" ><a href="#" onclick="changetab(2)">探测结果统计</a></li>
+                    </ul>
+
+                </div>
+                <div class="content table-responsive table-full-width" name="tab_div" id="tab_1_content" style="max-width:700px;min-width: 700px">
+                        <div>
+                                                <canvas id="chartjs-1" class="chartjs" width="1540" height="770" style="display: block; height: 385px; width: 770px;"></canvas>
+
+
+                        </div>
+                </div>
+                <div class="content table-responsive table-full-width" name="tab_div" id="tab_2_content" style="max-width:700px;min-width: 700px;display: none">
+                        <div>
+                            <canvas id="chartjs-2" class="chartjs" width="1540" height="2000" style="display: block; height: 385px; width: 770px;"></canvas>
+
+                        </div>
+
+
+                </div>
+                <div class="row tm_row" style="margin-top: 50px;margin-left: 50px;margin-right: 50px">
+                </div>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+{% include "footer.html" %}
+    </div>
+    </div>
+<script src="../../static/js/Chart.js"></script>
+<script  type="text/javascript">
+        new Chart(document.getElementById("chartjs-1"),{"type":"bar","data":{"labels":{{ ll|safe }},"datasets":[{"label":"指纹数量","data":{{ vv|safe }},"fill":true,"backgroundColor":["rgba(255, 99, 132, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)"],"borderColor":["rgb(255, 99, 132)","rgb(255, 159, 64)","rgb(255, 205, 86)","rgb(75, 192, 192)","rgb(54, 162, 235)","rgb(153, 102, 255)","rgb(201, 203, 207)"],"borderWidth":1}]},"options":{"scales":{"yAxes":[{"ticks":{"beginAtZero":true}}]}}});
+{#["January","February","March","April","May","June","July"],[65,59,800,810,5600,550,40]#}
+</script>
+    <script type="text/javascript">
+    function changetab(tabid) {
+        for(i=1;i<=2;i++) {
+            document.getElementById("tab_"+i).className=""; //将所有的层都隐藏
+        }
+        document.getElementById("tab_"+tabid).className="active";//显示当前层
+        var divs = document.getElementsByName("tab_div");
+        for(var i = 0; i < divs.length; i++) {
+                    var divv = divs[i];
+                    if(divv == document.getElementById("tab_" + tabid + "_content")) {
+                        divv.style.display = "block";
+                    } else {
+                        divv.style.display = "none";
+                    }
+        }
+        if(tabid == 2){
+            top50()
+        }
+    }
+    function top50() {
+        $.ajax({
+                url: '/gettop50',
+                type: "GET",
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data["status"] == 1) {
+                        ll = data["ll"]
+                        vv = data["vv"]
+                        new Chart(document.getElementById("chartjs-2"),{"type":"horizontalBar","data":{"labels":ll,"datasets":[{"label":"探测指纹Top50","data":vv,"fill":true,"backgroundColor":["rgba(255, 99, 132, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)"],"borderColor":["rgb(255, 99, 132)","rgb(255, 159, 64)","rgb(255, 205, 86)","rgb(75, 192, 192)","rgb(54, 162, 235)","rgb(153, 102, 255)","rgb(201, 203, 207)"],"borderWidth":1}]},"options":{"scales":{"yAxes":[{"ticks":{"beginAtZero":true}}]}}});
+                    } else {
+                        alert("系统繁忙请重试");
+                    }
+                }
+            });
+    }
+    </script>
+{% endblock content %}

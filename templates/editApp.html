@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#navigation-example-2">
+                        <span class="sr-only">n</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">会议信息编辑</a>
+                </div>
+                {#    {% include "userdropdown.html" %}#}
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">会议信息编辑</h4>
+                            </div>
+                            <div class="content">
+                                <form id="form1" name="form1" enctype="application/x-www-form-urlencoded"
+                                      method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {% if a != None %}
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <label>id</label>
+                                                        <input type="text" class="form-control" name="appid" id="appid"
+                                                               value="{{ a.appid }}" readonly>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>应用名称</label>
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="appname" id="appname"
+                                                               value="{{ a.appname }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>应用类型</label>
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="apptype" id="apptype"
+                                                               value="{{ a.apptype }}">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>网址</label>
+                                                        {#                                                        <input type="text" value="{{ a.startdate }}" class="form-control" name="startdate" id="startdate" lay-key="3" readonly>#}
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="website"
+                                                               id="website" value="{{ a.website }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>备注</label>
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="decription"
+                                                               id="decription" value="{{ a.decription }}">
+                                                    </div>
+                                                    <div style="float: right;">
+                                                        <a href="/" class="btn btn-info btn-fill">返回</a>
+
+                                                        <button id="submit_bt" type="button" onclick="send()" class="btn btn-info btn-fill">提交</button>
+                                                        <button onclick="deleteapp('{{ a.appid }}')"
+                                                                type="button" class="btn btn-danger btn-fill">删除
+                                                        </button>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </fieldset>
+                                            {% elif a == None %}
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <label>id</label>
+                                                        <input type="text" class="form-control" name="appid" id="appid"
+                                                               value="{{ a.appid }}" readonly>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>应用名称</label>
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="appname" id="appname"
+                                                               value="{{ a.appname }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>应用类型</label>
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="apptype" id="apptype"
+                                                               value="{{ a.apptype }}">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>网址</label>
+                                                        {#                                                        <input type="text" value="{{ a.startdate }}" class="form-control" name="startdate" id="startdate" lay-key="3" readonly>#}
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="website"
+                                                               id="website" value="{{ a.website }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>备注</label>
+                                                        <input onblur="checknull(this)" type="text" class="form-control"
+                                                               name="decription"
+                                                               id="decription" value="{{ a.decription }}">
+                                                    </div>
+                                                    <div style="float: right;">
+                                                        <a href="/" class="btn btn-info btn-fill">返回</a>
+
+                                                        <button id="submit_bt" type="button" onclick="send()" class="btn btn-info btn-fill">提交</button>
+
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </fieldset>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "footer.html" %}
+    <script>
+{#        lay('#version').html('-v' + laydate.v);#}
+{##}
+{#        //执行一个laydate实例#}
+{#        laydate.render({#}
+{#            elem: '#startdate' //指定元素#}
+{#            , format: 'yyyy-MM-dd'#}
+{#        });#}
+{#        //执行一个laydate实例#}
+{#        laydate.render({#}
+{#            elem: '#deadline' //指定元素#}
+{#            , type: 'datetime'#}
+{#        });#}
+        function checknull(obj) {
+            obj.style.borderColor = obj.value == "" ? 'red' : '';
+        }
+
+        function send() {
+            var f = document.getElementById("form1");
+            for (var i = 0; i < f.elements.length; i++) {
+                if (f.elements[i].value == "" && f.elements[i].id != 'appid' && f.elements[i].type != 'button') {
+                    alert("当前表单不能有空项");
+                    f.elements[i].style.borderColor = 'red';
+                    return false;
+                }
+            }
+            var form = new FormData(f);
+            var bt = document.getElementById('submit_bt')
+            bt.innerHTML = '正在提交请稍等'
+            bt.disabled = true;
+            $.ajax({
+                url: '/saveapp',
+                type: 'post',
+                cache: true,
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    alert(result[1])
+                    bt.innerHTML = '提交'
+                    bt.disabled = false;
+                    if (result[0] == 2) {
+
+                        document.getElementById('cfile').value = '';
+                        return
+                    }
+                    window.location.href = '/'
+
+
+                }
+            });
+        }
+        function deleteapp(aid) {
+            $.ajax({
+                url: '/deleteapp',
+
+                dataType: 'json',
+                data: {
+                    'aid': aid
+                },
+
+                success: function (result) {
+                    alert(result[1])
+                    window.location.href = '/'
+                }
+            });
+        }
+    </script>
+
+{% endblock content %}

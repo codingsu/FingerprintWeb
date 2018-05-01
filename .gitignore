@@ -6,10 +6,8 @@
 dist
 build
 .DS_Store
-static/conference
-static/paper
 .idea
 db.sqlite3
 servererror.log
-page/migrations
-page/config.py
+fingerprint/migrations
+fingerprint/config.py

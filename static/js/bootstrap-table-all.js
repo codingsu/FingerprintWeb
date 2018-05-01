@@ -326,7 +326,7 @@
             return 'Loading, please wait...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return sprintf('%s records per page', pageNumber);
+            return sprintf('%s records per fingerprint', pageNumber);
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
@@ -1007,7 +1007,7 @@
                 this.options.pageSize = this.options.totalRows;
                 $allSelected = true;
             } else if (this.options.pageSize === this.options.totalRows) {
-                // Fix #667 Table with pagination, multiple pages and a search that matches to one page throws exception
+                // Fix #667 Table with pagination, multiple pages and a search that matches to one fingerprint throws exception
                 var pageLst = typeof this.options.pageList === 'string' ?
                     this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').toLowerCase().split(',') :
                     this.options.pageList;
@@ -1036,13 +1036,13 @@
             this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
             '</span>');
 
-        html.push('<span class="page-list">');
+        html.push('<span class="fingerprint-list">');
 
         var pageNumber = [
                 sprintf('<span class="btn-group %s">', this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
                     'dropdown' : 'dropup'),
                 '<button type="button" class="btn btn-default ' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
-                '<span class="page-size">',
+                '<span class="fingerprint-size">',
                 $allSelected ? this.options.formatAllRows() : this.options.pageSize,
                 '</span>',
                 ' <span class="caret"></span>',
@@ -1079,8 +1079,8 @@
         html.push('</div>',
             '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
             '<ul class="pagination' + (this.options.iconSize === undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
-            '<li class="page-first"><a href="javascript:void(0)">' + this.options.paginationFirstText + '</a></li>',
-            '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
+            '<li class="fingerprint-first"><a href="javascript:void(0)">' + this.options.paginationFirstText + '</a></li>',
+            '<li class="fingerprint-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
 
         if (this.totalPages < 5) {
             from = 1;
@@ -1098,25 +1098,25 @@
             }
         }
         for (i = from; i <= to; i++) {
-            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+            html.push('<li class="fingerprint-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
                 '<a href="javascript:void(0)">', i, '</a>',
                 '</li>');
         }
 
         html.push(
-            '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
-            '<li class="page-last"><a href="javascript:void(0)">' + this.options.paginationLastText + '</a></li>',
+            '<li class="fingerprint-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
+            '<li class="fingerprint-last"><a href="javascript:void(0)">' + this.options.paginationLastText + '</a></li>',
             '</ul>',
             '</div>');
 
         this.$pagination.html(html.join(''));
 
-        $pageList = this.$pagination.find('.page-list a');
-        $first = this.$pagination.find('.page-first');
-        $pre = this.$pagination.find('.page-pre');
-        $next = this.$pagination.find('.page-next');
-        $last = this.$pagination.find('.page-last');
-        $number = this.$pagination.find('.page-number');
+        $pageList = this.$pagination.find('.fingerprint-list a');
+        $first = this.$pagination.find('.fingerprint-first');
+        $pre = this.$pagination.find('.fingerprint-pre');
+        $next = this.$pagination.find('.fingerprint-next');
+        $last = this.$pagination.find('.fingerprint-last');
+        $number = this.$pagination.find('.fingerprint-number');
 
         if (this.options.pageNumber <= 1) {
             $first.addClass('disabled');
@@ -1131,7 +1131,7 @@
                 this.$pagination.find('div.pagination').hide();
             }
             if (pageList.length < 2 || this.options.totalRows <= pageList[0]) {
-                this.$pagination.find('span.page-list').hide();
+                this.$pagination.find('span.fingerprint-list').hide();
             }
 
             // when data is empty, hide the pagination
@@ -1165,7 +1165,7 @@
             this.initBody();
         }
 
-        this.trigger('page-change', this.options.pageNumber, this.options.pageSize);
+        this.trigger('fingerprint-change', this.options.pageNumber, this.options.pageSize);
     };
 
     BootstrapTable.prototype.onPageListChange = function (event) {
@@ -1174,7 +1174,7 @@
         $this.parent().addClass('active').siblings().removeClass('active');
         this.options.pageSize = $this.text().toUpperCase() === this.options.formatAllRows().toUpperCase() ?
             this.options.formatAllRows() : +$this.text();
-        this.$toolbar.find('.page-size').text(this.options.pageSize);
+        this.$toolbar.find('.fingerprint-size').text(this.options.pageSize);
 
         this.updatePagination(event);
     };

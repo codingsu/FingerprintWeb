@@ -7,12 +7,12 @@
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"
                             data-target="#navigation-example-2">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">论文列表</a>
+                    <a class="navbar-brand" href="#">Script指纹列表</a>
                 </div>
                 {#          {% include "userdropdown.html" %}#}
             </div>
@@ -26,77 +26,37 @@
                         <div class="card">
                             <div style="" class="header">
                                 <div style="max-width: 300px;float: left;">
-                                    <h4 class="title">论文列表</h4>
+                                    <h4 class="title">Script指纹列表</h4>
                                     <p class="category"></p>
 
                                 </div>
 
-                                <div style="float: right;">
-                                    <a href="/tonewpaper" class="btn btn-info btn-fill"><i
-                                            class="fa fa-plus"></i>添加论文</a>
-                                </div>
-                                <div style="max-width:300px;margin-right: 100px;float: right;">
-                                        <form action="/searchpaper" class="bs-example bs-example-form" role="form" method="post">
-                                            {% csrf_token %}
-                                                <div class="input-group">
-                                                    <input id="keyword" name="keyword" type="text" placeholder="请输入关键字" class="form-control">
-                                                    <span class="input-group-btn">
-						                                <button class="btn btn-default" type="submit">
-							                            搜索
-						                                </button>
-                                                    </span>
-                                                </div><!-- /input-group -->
-
-                                        </form>
-                                    </div>
                             </div>
 
                             <div style="margin-top:60px" class="content table-responsive  table-full-width">
                                 <table id="table_1" style="table-layout:fixed;" class="table table-hover table-striped">
                                     <thead>
-                                    <th width="10%">会议名称</th>
-                                    <th width="5%">级别</th>
-                                    <th width="10%">发表时间</th>
-                                    {% if iseditrss %}
-                                        <th width="10%" style="">Poster 发表时间</th>
-                                    {% endif %}
-                                    <th width="15%">作者</th>
-                                    <th width="20%">论文名称</th>
-                                    <th width="5%">论文</th>
+                                    <th width="5%">id</th>
+                                    <th width="5%">应用id</th>
+                                    <th width="5%">指纹类型</th>
+                                    <th width="25%">指纹</th>
+                                    <th width="20%">指纹来源</th>
                                     <th width="5%">编辑</th>
                                     </thead>
                                     <tbody>
-                                    {% for i in paperlist %}
+                                    {% for i in scriptlist %}
                                         <tr>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.conferencename }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.level }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.publishdate }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.author }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.title }}</td>
-                                            {% if i.filename != "" %}
-                                                <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;">
-                                                    <a href="/downloadpaper?id={{ i.id }}">下载</a></td>
-                                            {% else %}
-                                                <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;">
-                                                    无
-                                                </td>
-                                            {% endif %}
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.scriptid }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.appid }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.matchtype }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.matchvalue }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.fpfrom }}</td>
                                             <td class="td-actions" style="word-wrap:break-word;word-break:break-all;">
-                                                <a href="/tonewpaper?id={{ i.id }}" role="button" rel="tooltip"
+                                                <a href="/tonewscript?scriptid={{ i.scriptid }}" role="button" rel="tooltip"
                                                    title="编辑" class="btn btn-info btn-simple btn-xs">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </td>
-                                            {#                            {% if iseditrss %}#}
-                                            {#                        <td  class="td-actions text-right" style="word-wrap:break-word;word-break:break-all;">#}
-                                            {#                                <a href="/toeditrss?id={{ i.id }}" role="button" rel="tooltip" title="编辑" class="btn btn-info btn-simple btn-xs">#}
-                                            {#                                    <i class="fa fa-pencil"></i>#}
-                                            {#                                </a>#}
-                                            {#                                <a href="/deleterss?id={{ i.id }}" role="button" rel="tooltip" title="删除" class="btn btn-danger btn-simple btn-xs">#}
-                                            {#                                    <i class="fa fa-times"></i>#}
-                                            {#                            </a>#}
-                                            {#                        </td>#}
-                                            {#                        {% endif %}#}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -158,7 +118,7 @@
             tempStr+="</ul>"
             document.getElementById(barconid).innerHTML = tempStr;
             }
-        goPage(1,'table_1','barcon1');
+        goPage(1, 'table_1', 'barcon1');
 
     </script>
     </div>

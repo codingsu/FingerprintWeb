@@ -7,12 +7,11 @@
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"
                             data-target="#navigation-example-2">
-                        <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">会议列表</a>
+                    <a class="navbar-brand" href="#">Implie指纹列表</a>
                 </div>
                 {#          {% include "userdropdown.html" %}#}
             </div>
@@ -26,15 +25,15 @@
                         <div class="card">
                             <div style="" class="header">
                                 <div style="float: left;">
-                                    <h4 class="title">会议列表</h4>
+                                    <h4 class="title">Implie指纹列表</h4>
                                     <p class="category"></p>
                                 </div>
                                     <div style="float: right;">
-                                        <a href="/tonewconference" class="btn btn-info btn-fill"><i
-                                                class="fa fa-plus"></i>新建会议</a>
+                                        <a href="/tonewimplie" class="btn btn-info btn-fill"><i
+                                                class="fa fa-plus"></i>新建Implie指纹</a>
                                     </div>
                                 <div style="max-width:300px;margin-right: 100px;float: right;">
-                                        <form action="/searchconference" class="bs-example bs-example-form" role="form" method="post">
+                                        <form action="/searchimplie" class="bs-example bs-example-form" role="form" method="post">
                                             {% csrf_token %}
                                                 <div class="input-group">
                                                     <input id="keyword" name="keyword" type="text" placeholder="请输入关键字" class="form-control">
@@ -52,49 +51,25 @@
                             <div style="margin-top:60px" class="content table-responsive  table-full-width">
                                 <table id="table_1" style="table-layout:fixed;" class="table table-hover table-striped">
                                     <thead>
-                                    <th width="20%">会议名称</th>
-                                    <th width="5%">级别</th>
-                                    <th width="10%">截止时间</th>
-                                    {% if iseditrss %}
-                                        <th width="20%" style="">Poster deadline</th>
-                                    {% endif %}
-                                    <th width="10%">通知时间</th>
-                                    <th width="10%">会议时间</th>
-                                    <th width="10%">会议地点</th>
-                                    <th width="20%">URL</th>
-                                    <th width="5%">例文</th>
+                                    <th width="10%">id</th>
+                                    <th width="10%">应用id</th>
+                                    <th width="10%">关联应用id</th>
+                                    <th width="30%">备注</th>
                                     <th width="5%">编辑</th>
                                     </thead>
                                     <tbody>
-                                    {% for i in conferencelist %}
+                                    {% for i in implielist %}
                                         <tr>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.name }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.level }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.deadline }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.notifytime }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.startdate }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.location }}</td>
-                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.url }}</td>
-                                            {% if i.filename != "" %}
-                                            <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;"><a href="/downloadconferencepage?id={{ i.id }}">下载</a></td>
-                                            {% else %}
-                                            <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;">无</td>
-                                            {% endif %}
-                                            <td  class="td-actions" style="word-wrap:break-word;word-break:break-all;">
-                                                    <a href="/tonewconference?id={{ i.id }}" role="button" rel="tooltip" title="编辑" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.implieid }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.appid }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.appimplieid }}</td>
+                                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.decription }}</td>
+                                            <td class="td-actions" style="word-wrap:break-word;word-break:break-all;">
+                                                <a href="/tonewimplie?implieid={{ i.implieid }}" role="button" rel="tooltip"
+                                                   title="编辑" class="btn btn-info btn-simple btn-xs">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
                                             </td>
-                                            {#                            {% if iseditrss %}#}
-                                            {#                        <td  class="td-actions text-right" style="word-wrap:break-word;word-break:break-all;">#}
-                                            {#                                <a href="/toeditrss?id={{ i.id }}" role="button" rel="tooltip" title="编辑" class="btn btn-info btn-simple btn-xs">#}
-                                            {#                                    <i class="fa fa-pencil"></i>#}
-                                            {#                                </a>#}
-                                            {#                                <a href="/deleterss?id={{ i.id }}" role="button" rel="tooltip" title="删除" class="btn btn-danger btn-simple btn-xs">#}
-                                            {#                                    <i class="fa fa-times"></i>#}
-                                            {#                            </a>#}
-                                            {#                        </td>#}
-                                            {#                        {% endif %}#}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
